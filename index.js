@@ -21,9 +21,6 @@ app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);
 app.use(userRouter);
-app.use("/", (request, response) => {
-  response.json({ message: "commercecart-backend server is live" });
-});
 
 // CONNECTION
 mongoose
