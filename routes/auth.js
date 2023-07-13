@@ -31,10 +31,10 @@ authRouter.post("/api/signin", async (request, response) => {
         .json({ message: "No user found in the database" });
     }
     const isPasswordMatched = await bcryptjs.compare(password, user.password);
-    if (!isPasswordMatched) {
+    if (isPasswordMatched == false) {
       return response
         .status(400)
-        .status({ message: "Incorrect password, Please try again!" });
+        .json({ message: "Incorrect password, Please try again!" });
     }
     const token = jwt.sign({ id: user._id }, "passwordKey");
     response.json({ token, ...user._doc });
