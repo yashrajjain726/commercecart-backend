@@ -73,6 +73,19 @@ userRouter.post("/api/user/update-address", auth, async (request, response) => {
   }
 });
 
+userRouter.post("/api/user/update", auth, async (request, response) => {
+  try {
+    const { address, name } = request.body;
+    let user = await User.findById(request.user);
+    user.address = address;
+    user.name = name;
+    user = await user.save();
+    response.json(user);
+  } catch (error) {
+    response.status(500).json({ error: error.message });
+  }
+});
+
 userRouter.post("/api/user/order-product", auth, async (request, response) => {
   try {
     const { cart, totalPrice, address } = request.body;
